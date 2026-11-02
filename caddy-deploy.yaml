@@ -5,36 +5,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: caddy-deployment
+  name: ajith-deployment
   namespace: ajith
+  labels:
+    app.kubernetes.io/name: ajith
 spec:
+  revisionHistoryLimit: 10
   replicas: 1
   selector:
     matchLabels:
-      app: caddy
+      app: ajith
   template:
     metadata:
       labels:
-        app: caddy
+        app: ajith
     spec:
       containers:
-        - name: caddy
+        - name: ajith
           image: caddy:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 1m
+              memory: 1Mi
+            limits:
+              cpu: 2m
+              memory: 2Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: caddy-service
+  name: ajith-service
   namespace: ajith
   annotations:
     networking.gke.io/load-balancer-type: "Internal" 
 spec:
   type: LoadBalancer
-  loadBalancerIP: 
+  loadBalancerIP: 172.23.0.49
   selector:
-    app: caddy
+    app: ajith
   ports:
     - port: 80
       targetPort: 80
