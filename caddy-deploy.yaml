@@ -1,7 +1,4 @@
 
-
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,7 +36,7 @@ metadata:
   name: ajith-service
   namespace: ajith
   annotations:
-    networking.gke.io/load-balancer-type: "Internal" 
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   type: LoadBalancer
   loadBalancerIP: 172.23.0.49
